@@ -1,11 +1,6 @@
 # Online Spell Checker
 
-This project is a spell checker with file online file upload feature.
-
-## Development server
-
-Run `node server.js` for a dev server. Navigate to `http://localhost:2000/`. 
-
+This project is a spell checker with online file upload feature.
 
 ## Usage 
 
@@ -19,5 +14,17 @@ Run `node server.js` for a dev server. Navigate to `http://localhost:2000/`.
 
 ## Libraries/Tools used
 
-1) multer - For file upload
-2) http://www.afterthedeadline.com/  - Spell Checker
+1) Multer : 
+
+Multer is a node.js middleware for handling multipart/form-data, which is primarily used for uploading files.
+
+`npm install --save multer`
+
+2) http://www.afterthedeadline.com/ :  
+
+After the Deadline is a language checker for the web with:
+
+1) Contextual Spell Checking
+2) Advanced Style Checking
+3) Intelligent Grammar Checking
+
