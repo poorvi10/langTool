@@ -1,0 +1,72 @@
+<!DOCTYPE html> 
+  
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Upload images to server using Node JS</title> 
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script> 
+    <!-- 2. load the atd.textarea.js -- this script makes it easy to attach AtD to a textarea -->
+    <script src="public/atd-jquery/scripts/jquery.atd.textarea.js"></script>
+    
+    <!-- 3. this script is a hack that allows cross-domain AJAX -->
+    <script src="public/atd-jquery/scripts/csshttprequest.js"></script>
+    
+    <!-- 4. this CSS file contains the style information for highlighted errors -->
+    <link rel="stylesheet" type="text/css" media="screen" href="public/atd-jquery/css/atd.css" />
+    <style>
+        .input {
+            font-size: 100%;
+            width: 400px;
+            height: 200px;
+            font-family: times;
+            border: 1px solid black;
+            padding: 2px;
+            margin: 2px;
+        }
+    </style>
+</head> 
+<body> 
+    <form id="frmUploader" enctype="multipart/form-data" action="api/Upload/" method="post"> 
+        <input type="file" name="imgUploader" /> 
+        <input type="submit" name="submit" id="btnSubmit" value="Upload" /> 
+    </form> 
+    <textarea rows="96" cols="147" id="textInput" class="input"></textarea>
+    <p><img src="public/atd-jquery/images/atdbuttontr.gif"><a href="javascript:check()" id="checkLink">Check Spelling</a></p>
+</body> 
+<script>
+    function check() {
+        AtD.checkTextAreaCrossAJAX('textInput', 'checkLink', 'Edit Text');
+    }
+    $(document).ready(function () { 
+        $('#textInput').empty();
+        var options = { 
+            beforeSubmit: showRequest,  // pre-submit callback 
+            success: showResponse  // post-submit callback 
+        }; 
+        // bind to the form's submit event 
+        $('#frmUploader').submit(function () { 
+            $(this).ajaxSubmit(options); 
+            // always return false to prevent standard browser submit and page navigation 
+            return false; 
+        }); 
+    }); 
+
+    // pre-submit callback 
+    function showRequest(formData, jqForm, options) { 
+        var ext = formData[0].value.name.split('.').pop();
+        //if(ext=="pdf" || ext=="docx" || ext=="doc"){ 
+            alert('Uploading is starting.'); 
+            return true; 
+        //}
+    } 
+
+    // post-submit callback 
+    function showResponse(responseText, statusText, xhr, $form) { 
+        $('#textInput').html(responseText).text();
+        alert('status: ' + statusText + '\n\nresponseText: \n' + responseText ); 
+    } 
+</script> 
+</html> 
